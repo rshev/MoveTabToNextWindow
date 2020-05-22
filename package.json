@@ -1,0 +1,21 @@
+{
+  "name": "move-tab-to-next-window",
+  "version": "0.9.0",
+  "description": "Move tab to next window browser context menu extension",
+  "homepage": "https://github.com/rshev/MoveTabToNextWindow",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf dist/",
+    "build-core": "cp src/*.json dist/",
+    "build": "npm run build-core && parcel build src/index.ts --no-source-maps",
+    "dev": "npm run build-core && parcel src/index.ts"
+  },
+  "keywords": [],
+  "author": "Roman Shevtsov",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/firefox-webext-browser": "^70.0.1",
+    "parcel-bundler": "^1.12.4",
+    "typescript": "^3.9.3"
+  }
+}
