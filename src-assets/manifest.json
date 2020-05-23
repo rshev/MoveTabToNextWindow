@@ -7,5 +7,9 @@
   "permissions": ["activeTab", "contextMenus"],
   "background": {
     "scripts": ["index.js"]
+  },
+  "browser_action": {
+    "default_icon": "icon.svg",
+    "default_title": "Move Tab to the Next Window"
   }
 }

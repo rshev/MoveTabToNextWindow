@@ -4,7 +4,8 @@
     "target": "es5",
     "jsx": "preserve",
     "sourceMap": true,
-    "strict": true
+    "strict": true,
+    "lib": ["ES2015"]
   },
   "exclude": ["node_modules", "**/node_modules/*"]
 }
