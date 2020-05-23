@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf dist/",
-    "build-core": "mkdir dist || true && cp src/*.json dist/",
-    "build": "npm run clean && npm run build-core && parcel build src/index.ts --no-source-maps",
-    "dev": "npm run build-core && parcel src/index.ts"
+    "build-assets": "mkdir dist || true && cp src-assets/* dist/",
+    "build": "npm run clean && npm run build-assets && parcel build src/index.ts --no-source-maps",
+    "dev": "npm run build-assets && parcel src/index.ts"
   },
   "keywords": [],
   "author": "Roman Shevtsov",
