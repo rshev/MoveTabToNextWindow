@@ -38,7 +38,12 @@ const tabClicked = async (tab: browser.tabs.Tab) => {
     return allWindows[currentTabWindowIndex + 1];
   })();
 
-  const targetIndex = originalTabPositions[tab.id].index ?? -1;
+  const targetIndex = (() => {
+    if (originalTabPositions[tab.id].windowId !== targetWindow.id) {
+      return -1;
+    }
+    return originalTabPositions[tab.id].index;
+  })();
 
   await browser.tabs.move(tab.id, {
     windowId: targetWindow.id,
