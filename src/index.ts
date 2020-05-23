@@ -1,18 +1,24 @@
+import { browser, Tabs } from "webextension-polyfill-ts";
+
 class Extension {
   private originalTabPositions: {
     [key: number]: { windowId: number; index: number };
   } = {};
 
   setup() {
-    browser.contextMenus.create({
-      contexts: ["tab"],
-      onclick: (_, tab) => this.moveTab(tab),
-      title: "Move to the next window",
-    });
+    try {
+      browser.contextMenus.create({
+        contexts: ["tab"],
+        onclick: (_, tab) => this.moveTab(tab),
+        title: "Move to the next window",
+      });
+    } catch {
+      console.log("oops, Chrome doesn't support extensions in tab menus (yet)");
+    }
     browser.browserAction.onClicked.addListener((tab) => this.moveTab(tab));
   }
 
-  private async moveTab(tab: browser.tabs.Tab) {
+  private async moveTab(tab: Tabs.Tab) {
     if (tab.id === undefined || tab.windowId === undefined) return;
 
     if (this.originalTabPositions[tab.id] === undefined) {

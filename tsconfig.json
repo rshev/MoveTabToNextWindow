@@ -5,7 +5,7 @@
     "jsx": "preserve",
     "sourceMap": true,
     "strict": true,
-    "lib": ["ES2015"]
+    "lib": ["ES2015", "DOM"]
   },
   "exclude": ["node_modules", "**/node_modules/*"]
 }

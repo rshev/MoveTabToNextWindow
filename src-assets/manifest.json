@@ -9,21 +9,28 @@
     "scripts": ["index.js"]
   },
   "icons": {
-    "48": "icon-dark.svg",
-    "96": "icon-dark.svg"
+    "16": "icon-dark-16.png",
+    "32": "icon-dark-32.png",
+    "48": "icon-dark-48.png",
+    "96": "icon-dark-96.png",
+    "128": "icon-dark-128.png"
   },
   "browser_action": {
     "default_title": "Move tab to the next window",
+    "default_icon": {
+      "16": "icon-dark-16.png",
+      "32": "icon-dark-32.png"
+    },
     "theme_icons": [
       {
         "dark": "icon-dark.svg",
         "light": "icon-light.svg",
-        "size": 32
+        "size": 16
       },
       {
         "dark": "icon-dark.svg",
         "light": "icon-light.svg",
-        "size": 16
+        "size": 32
       }
     ]
   }
