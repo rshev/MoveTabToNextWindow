@@ -8,7 +8,7 @@
     "clean": "rm -rf dist/",
     "build-assets": "mkdir dist || true && cp src-assets/* dist/",
     "build": "npm run clean && npm run build-assets && parcel build src/index.ts --no-source-maps",
-    "dev": "npm run build-assets && parcel src/index.ts"
+    "dev": "npm run clean && npm run build-assets && parcel src/index.ts"
   },
   "keywords": [],
   "author": "Roman Shevtsov",
