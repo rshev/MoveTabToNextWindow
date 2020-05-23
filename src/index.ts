@@ -15,6 +15,8 @@ const main = () => {
 main();
 
 const tabClicked = async (tab: browser.tabs.Tab) => {
+  if (tab.id === undefined || tab.windowId === undefined) return;
+
   if (originalTabPositions[tab.id] === undefined) {
     originalTabPositions[tab.id] = { windowId: tab.windowId, index: tab.index };
   }
@@ -44,6 +46,8 @@ const tabClicked = async (tab: browser.tabs.Tab) => {
   });
   if (wasTabActive) {
     await browser.tabs.update(tab.id, { active: true });
-    await browser.windows.update(targetWindow.id, { focused: true });
+    if (targetWindow.id !== undefined) {
+      await browser.windows.update(targetWindow.id, { focused: true });
+    }
   }
 };
