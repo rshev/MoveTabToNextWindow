@@ -2,6 +2,10 @@
 
 A browser extension which adds a tab context menu item (Firefox) and a button action (Firefox & Chrome) to move a tab to the next window.
 
+Especially useful for these amazing multi-monitor setups when it's too annoying to drag tabs around between windows.
+
+<img src="screenshot.png" width="1047" height="860" />
+
 ## Quick feature list
 
 - the initial tab position is remembered in the initial window, so if it's moved back to it, it moves into its original position
