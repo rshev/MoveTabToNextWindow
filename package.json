@@ -11,7 +11,9 @@
     "build-ff": "npm run clean && npm run build-assets-ff && parcel build src/index.ts --no-source-maps",
     "build-chrome": "npm run clean && npm run build-assets-chrome && parcel build src/index.ts --no-source-maps",
     "dev-ff": "npm run clean && npm run build-assets-ff && parcel src/index.ts",
-    "dev-chrome": "npm run clean && npm run build-assets-chrome && parcel src/index.ts"
+    "dev-chrome": "npm run clean && npm run build-assets-chrome && parcel src/index.ts",
+    "zip-ff": "npm run build-ff && cd dist && bestzip dist.zip *",
+    "zip-chrome": "npm run build-chrome && cd dist && bestzip dist.zip *"
   },
   "keywords": [],
   "author": "Roman Shevtsov",
@@ -19,6 +21,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.0.0",
     "@typescript-eslint/parser": "^3.0.0",
+    "bestzip": "^2.1.5",
     "eslint": "^7.1.0",
     "parcel-bundler": "^1.12.4",
     "typescript": "^3.9.3",
