@@ -18,8 +18,8 @@
   "browser_action": {
     "default_title": "Move tab to the next window",
     "default_icon": {
-      "16": "icon-dark-16.png",
-      "32": "icon-dark-32.png"
+      "16": "icon-light-outlined-16.png",
+      "32": "icon-light-outlined-32.png"
     },
     "theme_icons": [
       {
