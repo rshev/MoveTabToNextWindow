@@ -4,7 +4,7 @@ A browser extension which adds a tab context menu item (Firefox) and a button ac
 
 Especially useful for these amazing multi-monitor setups when it's too annoying to drag tabs around between windows.
 
-<img src="screenshot.png" width="1047" height="860" />
+![Screenshot](screenshot.png)
 
 ## Quick feature list
 
