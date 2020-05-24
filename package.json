@@ -12,8 +12,8 @@
     "build-chrome": "npm run clean && npm run build-assets-chrome && parcel build src/index.ts --no-source-maps",
     "dev-ff": "npm run clean && npm run build-assets-ff && parcel src/index.ts",
     "dev-chrome": "npm run clean && npm run build-assets-chrome && parcel src/index.ts",
-    "zip-ff": "npm run build-ff && cd dist && bestzip dist.zip *",
-    "zip-chrome": "npm run build-chrome && cd dist && bestzip dist.zip *"
+    "zip-ff": "npm run build-ff && cd dist && bestzip dist-ff.zip *",
+    "zip-chrome": "npm run build-chrome && cd dist && bestzip dist-chrome.zip *"
   },
   "keywords": [],
   "author": "Roman Shevtsov",
