@@ -4,6 +4,8 @@ A browser extension which adds a tab context menu item (Firefox) and a button ac
 
 Especially useful for these amazing multi-monitor setups when it's too annoying to drag tabs around between windows.
 
+Live for Firefox: https://addons.mozilla.org/en-GB/firefox/addon/move-tab-to-next-window/
+
 ![Screenshot](screenshot.png)
 
 ## Quick feature list
