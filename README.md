@@ -10,7 +10,7 @@ Live for Firefox: https://addons.mozilla.org/en-GB/firefox/addon/move-tab-to-nex
 
 ## Quick feature list
 
-- the initial tab position is remembered in the initial window, so if it's moved back to it, it moves into its original position
+- the source tab position is saved in all windows, so if it's moved back into a window, it moves into its original position
 - if the tab is active, it will become active in the new window
 - if the tab is inactive, it will stay inactive in the new window
 - if there is only 1 window, a new window will be opened on move
@@ -32,5 +32,6 @@ Prerequisites:
 How to contribute:
 
 - fork the project
+- `npm install`
 - `npm run dev-ff` or `npm run dev-chrome`, load unpacked extension from `dist` directory. Hot reload for changes in TypeScript is enabled.
 - make changes, open a PR

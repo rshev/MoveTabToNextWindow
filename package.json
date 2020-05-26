@@ -1,6 +1,6 @@
 {
   "name": "move-tab-to-next-window",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "Move tab to next window browser context menu extension",
   "homepage": "https://github.com/rshev/MoveTabToNextWindow",
   "scripts": {
@@ -10,8 +10,8 @@
     "build-assets-chrome": "cp src-assets-chrome/* dist/",
     "build-ff": "npm run clean && npm run build-assets-ff && parcel build src/index.ts --no-source-maps",
     "build-chrome": "npm run clean && npm run build-assets-chrome && parcel build src/index.ts --no-source-maps",
-    "dev-ff": "npm run clean && npm run build-assets-ff && parcel src/index.ts",
-    "dev-chrome": "npm run clean && npm run build-assets-chrome && parcel src/index.ts",
+    "dev-ff": "npm run clean && npm run build-assets-ff && parcel src/index.ts --no-hmr",
+    "dev-chrome": "npm run clean && npm run build-assets-chrome && parcel src/index.ts --no-hmr",
     "zip-ff": "npm run build-ff && cd dist && bestzip dist-ff.zip *",
     "zip-chrome": "npm run build-chrome && cd dist && bestzip dist-chrome.zip *"
   },
