@@ -9,8 +9,8 @@
     "scripts": ["index.js"]
   },
   "icons": {
-    "48": "icon-dark-outlined-48.png",
-    "96": "icon-dark-outlined-96.png"
+    "48": "icon-dark.svg",
+    "96": "icon-dark.svg"
   },
   "browser_action": {
     "default_title": "Move tab to the next window",
