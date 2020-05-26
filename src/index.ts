@@ -1,8 +1,10 @@
 import { browser, Tabs } from "webextension-polyfill-ts";
 
 class Extension {
-  private originalTabPositions: {
-    [key: number]: { windowId: number; index: number };
+  private originalTabIndexByTabIdByWindowId: {
+    [key: number]: {
+      [key: number]: number;
+    };
   } = {};
 
   setup() {
@@ -21,47 +23,40 @@ class Extension {
   private async moveTab(tab: Tabs.Tab) {
     if (tab.id === undefined || tab.windowId === undefined) return;
 
-    if (this.originalTabPositions[tab.id] === undefined) {
-      this.originalTabPositions[tab.id] = {
-        windowId: tab.windowId,
-        index: tab.index,
-      };
-    }
+    if (this.originalTabIndexByTabIdByWindowId[tab.id] === undefined)
+      this.originalTabIndexByTabIdByWindowId[tab.id] = {};
 
-    const allWindows = await browser.windows.getAll();
+    this.originalTabIndexByTabIdByWindowId[tab.id][tab.windowId] = tab.index;
 
-    if (allWindows.length <= 1) {
-      await browser.windows.create({ tabId: tab.id });
-      return;
-    }
+    const allWindows = (await browser.windows.getAll()).filter(
+      (window) => window.id !== undefined
+    );
 
     const currentTabWindowIndex = allWindows.findIndex(
       (window) => window.id === tab.windowId
     );
+
+    const targetWindowId =
+      allWindows[(currentTabWindowIndex + 1) % allWindows.length].id;
+
+    if (allWindows.length <= 1 || targetWindowId === undefined) {
+      await browser.windows.create({ tabId: tab.id });
+      return;
+    }
+
     const wasTabActive = tab.active;
 
-    const targetWindow = (() => {
-      if (currentTabWindowIndex === allWindows.length - 1) return allWindows[0];
-      return allWindows[currentTabWindowIndex + 1];
-    })();
-
-    const targetIndex = (() => {
-      if (this.originalTabPositions[tab.id].windowId !== targetWindow.id) {
-        return -1;
-      }
-      return this.originalTabPositions[tab.id].index;
-    })();
+    const targetIndex =
+      this.originalTabIndexByTabIdByWindowId[tab.id][targetWindowId] ?? -1;
 
     await browser.tabs.move(tab.id, {
-      windowId: targetWindow.id,
+      windowId: targetWindowId,
       index: targetIndex,
     });
 
     if (wasTabActive) {
       await browser.tabs.update(tab.id, { active: true });
-      if (targetWindow.id !== undefined) {
-        await browser.windows.update(targetWindow.id, { focused: true });
-      }
+      await browser.windows.update(targetWindowId, { focused: true });
     }
   }
 }
