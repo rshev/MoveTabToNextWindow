@@ -4,7 +4,7 @@
   "version": "0.9.2",
   "description": "Move tab to next window - tab context menu and button extension",
   "homepage_url": "https://github.com/rshev/MoveTabToNextWindow",
-  "permissions": ["activeTab", "contextMenus"],
+  "permissions": ["contextMenus"],
   "background": {
     "scripts": ["index.js"]
   },
