@@ -6,6 +6,7 @@ Especially useful for these amazing multi-monitor setups when it's too annoying 
 
 - Mozilla Firefox: https://addons.mozilla.org/en-GB/firefox/addon/move-tab-to-next-window/
 - Microsoft Edge: https://microsoftedge.microsoft.com/addons/detail/ndjiippfnecdmbjenbcnjdbjnopkamno
+- Google Chrome: https://chrome.google.com/webstore/detail/move-tab-to-next-window/ibpemckpjfpmhlagogddlajhaiemdjaf
 
 ![Screenshot](screenshot.png)
 
