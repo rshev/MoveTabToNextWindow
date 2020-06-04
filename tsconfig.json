@@ -4,8 +4,12 @@
     "target": "es5",
     "jsx": "preserve",
     "sourceMap": true,
+    "lib": ["ES2015", "DOM"],
     "strict": true,
-    "lib": ["ES2015", "DOM"]
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
   },
   "exclude": ["node_modules", "**/node_modules/*"]
 }

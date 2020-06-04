@@ -13,6 +13,7 @@ Especially useful for these amazing multi-monitor setups when it's too annoying 
 ## Quick feature list
 
 - the source tab position is saved in all windows, so if it's moved back into a window, it moves into its original position
+- multiple tabs move - select multiple tabs (use shift or cmd/ctrl) and move all of them into the next window in the same order
 - if the tab is active, it will become active in the new window
 - if the tab is inactive, it will stay inactive in the new window
 - if there is only 1 window, a new window will be opened on move
@@ -35,5 +36,5 @@ How to contribute:
 
 - fork the project
 - `npm install`
-- `npm run dev-ff` or `npm run dev-chrome`, load unpacked extension from `dist` directory. Hot reload for changes in TypeScript is enabled.
+- `npm run dev-ff` or `npm run dev-chrome`, load unpacked extension from `dist` directory.
 - make changes, open a PR
