@@ -9,7 +9,7 @@ class Extension {
 
   setup() {
     try {
-      browser.contextMenus.create({
+      browser.menus.create({
         contexts: ["tab"],
         onclick: (_, tab) => this.moveTabOrHighlightedTabs(tab),
         title: "Move to the next window",
