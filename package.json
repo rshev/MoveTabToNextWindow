@@ -12,7 +12,7 @@
     "build-chrome": "npm run clean && npm run build-assets-chrome && parcel build src/index.ts --no-source-maps",
     "dev-ff": "npm run clean && npm run build-assets-ff && parcel src/index.ts --no-hmr",
     "dev-chrome": "npm run clean && npm run build-assets-chrome && parcel src/index.ts --no-hmr",
-    "zip-ff": "npm run build-ff && cd dist && bestzip dist-ff.zip *",
+    "zip-ff": "npm run build-ff && cd dist && bestzip dist-ff.zip * && cd .. && bestzip dist/src-ff.zip src src-assets-ff *.json *.md LICENSE",
     "zip-chrome": "npm run build-chrome && cd dist && bestzip dist-chrome.zip *"
   },
   "keywords": [],
