@@ -13,6 +13,7 @@ Especially useful for these amazing multi-monitor setups when it's too annoying 
 ## Quick feature list
 
 - the source tab position is saved in all windows, so if it's moved back into a window, it moves into its original position
+- CHROMIUM: if the tab was in a tab group, when moving back to original window it will return into the same group
 - multiple tabs move - select multiple tabs (use shift or cmd/ctrl) and move all of them into the next window in the same order
 - if the tab is active, it will become active in the new window
 - if the tab is inactive, it will stay inactive in the new window
@@ -21,7 +22,7 @@ Especially useful for these amazing multi-monitor setups when it's too annoying 
 ## Technologies used
 
 - TypeScript in strict mode for safety
-- Parcel to build, transpile and hot-reload ts changes
+- Microbundler to build and transpile ts changes
 - `webextension-polyfill` for compatibility with both Firefox and Chrome
 - ESLint for linting
 
