@@ -19,12 +19,12 @@
   "author": "Roman Shevtsov",
   "license": "MIT",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^3.0.0",
-    "@typescript-eslint/parser": "^3.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.0.0",
+    "@typescript-eslint/parser": "^4.0.0",
     "bestzip": "^2.1.7",
     "eslint": "^7.1.0",
     "parcel-bundler": "^1.12.4",
-    "typescript": "^3.9.3",
-    "webextension-polyfill-ts": "^0.16.0"
+    "typescript": "^4.0.0",
+    "webextension-polyfill-ts": "^0.25.0"
   }
 }
