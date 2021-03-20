@@ -1,6 +1,6 @@
 {
   "name": "move-tab-to-next-window",
-  "version": "0.9.5",
+  "version": "0.9.7",
   "description": "Move tab to next window browser context menu extension",
   "homepage": "https://github.com/rshev/MoveTabToNextWindow",
   "scripts": {

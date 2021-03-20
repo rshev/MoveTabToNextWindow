@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Move Tab to Next Window",
-  "version": "0.9.5",
+  "version": "0.9.7",
   "description": "Move tab to next window - tab context menu and button extension",
   "homepage_url": "https://github.com/rshev/MoveTabToNextWindow",
   "permissions": ["menus"],
