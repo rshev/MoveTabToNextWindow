@@ -2,11 +2,13 @@
 import { browser, Tabs } from "webextension-polyfill-ts";
 
 class Extension {
-  private originalTabInfoByTabIdByWindowId: {
-    [key: number]: {
-      [key: number]: Tabs.Tab;
-    };
+  private originalTabInfoByTabWindowId: {
+    [key: string]: Tabs.Tab;
   } = {};
+
+  private tabWindowId(tabId: number, windowId: number): string {
+    return `${tabId}:${windowId}`;
+  }
 
   setup() {
     try {
@@ -40,33 +42,28 @@ class Extension {
       return;
     }
 
-    if (this.originalTabInfoByTabIdByWindowId[tab.id] === undefined) {
-      this.originalTabInfoByTabIdByWindowId[tab.id] = {};
-    }
-
-    this.originalTabInfoByTabIdByWindowId[tab.id][tab.windowId] = tab;
+    const originalTabWindowId = this.tabWindowId(tab.id, tab.windowId);
+    this.originalTabInfoByTabWindowId[originalTabWindowId] = { ...tab };
 
     const allWindows = (await browser.windows.getAll()).filter((window) => window.id !== undefined);
-
     const currentTabWindowIndex = allWindows.findIndex((window) => window.id === tab.windowId);
-
-    const targetWindowId = allWindows[(currentTabWindowIndex + 1) % allWindows.length].id;
+    const targetWindowId = allWindows[(currentTabWindowIndex + 1) % allWindows.length]?.id;
 
     if (allWindows.length <= 1 || targetWindowId === undefined) {
       await browser.windows.create({ tabId: tab.id });
       return;
     }
 
-    const wasTabActive = tab.active;
-
-    const targetIndex = this.originalTabInfoByTabIdByWindowId[tab.id][targetWindowId].index ?? -1;
+    const wasOriginalTabActive = tab.active;
+    const targetTabWindowId = this.tabWindowId(tab.id, targetWindowId);
+    const targetIndex = this.originalTabInfoByTabWindowId[targetTabWindowId]?.index ?? -1;
 
     await browser.tabs.move(tab.id, {
       windowId: targetWindowId,
       index: targetIndex,
     });
 
-    if (wasTabActive) {
+    if (wasOriginalTabActive) {
       await browser.tabs.update(tab.id, { active: true });
       await browser.windows.update(targetWindowId, { focused: true });
     }
@@ -76,11 +73,11 @@ class Extension {
     // @ts-ignore
     if (chrome.tabs.group != null) {
       // @ts-ignore
-      const originalGroupId = this.originalTabInfoByTabIdByWindowId[tab.id][targetWindowId].groupId;
-      if (originalGroupId != null && originalGroupId !== -1) {
+      const targetGroupId = this.originalTabInfoByTabWindowId[targetTabWindowId]?.groupId;
+      if (targetGroupId != null && targetGroupId !== -1) {
         // @ts-ignore
         chrome.tabs.group({
-          groupId: originalGroupId,
+          groupId: targetGroupId,
           tabIds: tab.id,
         });
       }
