@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "ES2015",
+    "target": "ES2020",
     "jsx": "preserve",
     "sourceMap": true,
-    "lib": ["ES2015", "DOM"],
+    "lib": ["ES2020", "DOM"],
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,

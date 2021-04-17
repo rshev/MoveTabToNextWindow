@@ -1,12 +1,12 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Move Tab to Next Window",
-  "version": "0.9.8",
+  "version": "1.0.0",
   "description": "Move tab to next window - button extension",
   "homepage_url": "https://github.com/rshev/MoveTabToNextWindow",
-  "permissions": [],
+  "permissions": ["tabGroups"],
   "background": {
-    "scripts": ["index.js"]
+    "service_worker": "index.js"
   },
   "icons": {
     "16": "icon-dark-outlined-16.png",
@@ -14,7 +14,7 @@
     "48": "icon-dark-outlined-48.png",
     "128": "icon-dark-outlined-128.png"
   },
-  "browser_action": {
+  "action": {
     "default_title": "Move tab to the next window",
     "default_icon": {
       "16": "icon-light-outlined-16.png",

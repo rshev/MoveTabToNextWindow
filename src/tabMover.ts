@@ -1,29 +1,26 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { browser, Tabs } from "webextension-polyfill-ts";
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { browser } from "webextension-polyfill-ts";
 
-class Extension {
+export interface Tab {
+  id?: number;
+  windowId?: number;
+  groupId?: number;
+  index: number;
+  active: boolean;
+}
+
+export class TabMover {
   private originalTabInfoByTabWindowId: {
-    [key: string]: Tabs.Tab;
+    [key: string]: Tab;
   } = {};
 
   private tabWindowId(tabId: number, windowId: number): string {
     return `${tabId}:${windowId}`;
   }
 
-  setup() {
-    try {
-      browser.menus.create({
-        contexts: ["tab"],
-        onclick: (_, tab) => this.moveTabOrHighlightedTabs(tab),
-        title: "Move to the next window",
-      });
-    } catch {
-      console.log("oops, Chrome doesn't support extensions in tab menus (yet)");
-    }
-    browser.browserAction.onClicked.addListener((tab) => this.moveTabOrHighlightedTabs(tab));
-  }
+  newTabCompletion?: (tab: Tab, targetWindowId: number, originalTab?: Tab) => Promise<void>;
 
-  private async moveTabOrHighlightedTabs(tab: Tabs.Tab) {
+  async moveTabOrHighlightedTabs(tab: Tab) {
     const highlightedTabs = await browser.tabs.query({
       highlighted: true,
       currentWindow: true,
@@ -33,11 +30,11 @@ class Extension {
         await this.moveTab(tab);
       }
     } else {
-      this.moveTab(tab);
+      await this.moveTab(tab);
     }
   }
 
-  private async moveTab(tab: Tabs.Tab) {
+  async moveTab(tab: Tab) {
     if (tab.id === undefined || tab.windowId === undefined) {
       return;
     }
@@ -50,7 +47,8 @@ class Extension {
     const targetWindowId = allWindows[(currentTabWindowIndex + 1) % allWindows.length]?.id;
 
     if (allWindows.length <= 1 || targetWindowId === undefined) {
-      await browser.windows.create({ tabId: tab.id });
+      const targetWindow = await browser.windows.create({ tabId: tab.id });
+      await this.complete(tab, targetWindow.id);
       return;
     }
 
@@ -68,22 +66,18 @@ class Extension {
       await browser.windows.update(targetWindowId, { focused: true });
     }
 
-    // Unfortunately webextension-polyfill-ts doesn't know anything about Chrome groups yet
+    await this.complete(tab, targetWindowId);
+  }
 
-    // @ts-ignore
-    if (chrome.tabs.group != null) {
-      // @ts-ignore
-      const targetGroupId = this.originalTabInfoByTabWindowId[targetTabWindowId]?.groupId;
-      if (targetGroupId != null && targetGroupId !== -1) {
-        // @ts-ignore
-        chrome.tabs.group({
-          groupId: targetGroupId,
-          tabIds: tab.id,
-        });
-      }
+  private async complete(tab: Tab, targetWindowId?: number) {
+    if (targetWindowId == null || tab.id == null) {
+      return;
     }
+    const tabWindowId = this.tabWindowId(tab.id, targetWindowId);
+    await this.newTabCompletion?.(
+      tab,
+      targetWindowId,
+      this.originalTabInfoByTabWindowId[tabWindowId]
+    );
   }
 }
-
-const extension = new Extension();
-extension.setup();
