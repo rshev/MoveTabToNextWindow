@@ -9,16 +9,19 @@ export interface Tab {
   active: boolean;
 }
 
+export interface Data {
+  [key: string]: Tab;
+}
 export class TabMover {
-  private originalTabInfoByTabWindowId: {
-    [key: string]: Tab;
-  } = {};
+  private originalTabInfoByTabWindowId: Data = {};
 
   private tabWindowId(tabId: number, windowId: number): string {
     return `${tabId}:${windowId}`;
   }
 
   newTabCompletion?: (tab: Tab, targetWindowId: number, originalTab?: Tab) => Promise<void>;
+  loadData?: () => Promise<Data>;
+  saveData?: (data: Data) => Promise<void>;
 
   async moveTabOrHighlightedTabs(tab: Tab) {
     const highlightedTabs = await browser.tabs.query({
@@ -35,6 +38,10 @@ export class TabMover {
   }
 
   async moveTab(tab: Tab) {
+    if (this.loadData != null) {
+      this.originalTabInfoByTabWindowId = await this.loadData();
+    }
+
     if (tab.id === undefined || tab.windowId === undefined) {
       return;
     }
@@ -79,5 +86,7 @@ export class TabMover {
       targetWindowId,
       this.originalTabInfoByTabWindowId[tabWindowId]
     );
+
+    await this.saveData?.(this.originalTabInfoByTabWindowId);
   }
 }
