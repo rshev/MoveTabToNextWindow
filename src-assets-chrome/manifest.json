@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Move Tab to Next Window",
   "version": "1.0.0",
-  "description": "Move tab to next window - button extension",
+  "description": "One-click to move a tab, NOW with Tab Groups support!",
   "homepage_url": "https://github.com/rshev/MoveTabToNextWindow",
   "permissions": ["tabGroups", "storage"],
   "background": {
@@ -15,7 +15,7 @@
     "128": "icon-dark-outlined-128.png"
   },
   "action": {
-    "default_title": "Move tab to the next window",
+    "default_title": "Move Tab to Next Window",
     "default_icon": {
       "16": "icon-light-outlined-16.png",
       "32": "icon-light-outlined-32.png"
