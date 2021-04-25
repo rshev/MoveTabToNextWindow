@@ -37,23 +37,23 @@ export class TabMover {
     }
   }
 
-  async moveTab(tab: Tab) {
-    if (this.loadData != null) {
-      this.originalTabInfoByTabWindowId = await this.loadData();
+  private async moveTab(tab: Tab) {
+    if (tab.id == null || tab.windowId == null) {
+      return;
     }
 
-    if (tab.id === undefined || tab.windowId === undefined) {
-      return;
+    if (this.loadData != null) {
+      this.originalTabInfoByTabWindowId = await this.loadData();
     }
 
     const originalTabWindowId = this.tabWindowId(tab.id, tab.windowId);
     this.originalTabInfoByTabWindowId[originalTabWindowId] = { ...tab };
 
-    const allWindows = (await browser.windows.getAll()).filter((window) => window.id !== undefined);
+    const allWindows = (await browser.windows.getAll()).filter((window) => window.id != null);
     const currentTabWindowIndex = allWindows.findIndex((window) => window.id === tab.windowId);
     const targetWindowId = allWindows[(currentTabWindowIndex + 1) % allWindows.length]?.id;
 
-    if (allWindows.length <= 1 || targetWindowId === undefined) {
+    if (allWindows.length <= 1 || targetWindowId == null) {
       const targetWindow = await browser.windows.create({ tabId: tab.id });
       await this.complete(tab, targetWindow.id);
       return;

@@ -26,7 +26,7 @@ tabMover.newTabCompletion = async (tab: Tab, targetWindowId: number, originalTab
         return group;
       }
     }
-    return undefined;
+    return null;
   })();
 
   if (group == null) {
