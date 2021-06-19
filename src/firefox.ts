@@ -8,3 +8,4 @@ browser.menus.create({
   title: "Move to the next window",
 });
 browser.browserAction.onClicked.addListener((tab) => tabMover.moveTabOrHighlightedTabs(tab));
+browser.commands.onCommand.addListener(() => tabMover.moveActiveTab());

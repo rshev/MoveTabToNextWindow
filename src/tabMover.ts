@@ -37,6 +37,16 @@ export class TabMover {
     }
   }
 
+  async moveActiveTab() {
+    const tabs = await browser.tabs.query({
+      active: true,
+      currentWindow: true,
+    });
+    if (tabs[0] != null) {
+      await this.moveTab(tabs[0]);
+    }
+  }
+
   private async moveTab(tab: Tab) {
     if (tab.id == null || tab.windowId == null) {
       return;

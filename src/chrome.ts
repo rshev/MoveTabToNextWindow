@@ -4,6 +4,7 @@ import { TabMover, Tab, Data } from "./tabMover";
 const tabMover = new TabMover();
 chrome.runtime.onStartup.addListener(() => chrome.storage.local.clear());
 chrome.action.onClicked.addListener((tab) => tabMover.moveTabOrHighlightedTabs(tab));
+chrome.commands.onCommand.addListener((_, tab) => tabMover.moveTabOrHighlightedTabs(tab));
 
 // chrome-specific hooks
 tabMover.loadData = async () => {

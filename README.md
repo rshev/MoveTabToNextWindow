@@ -18,6 +18,7 @@ Especially useful for these amazing multi-monitor setups when it's too annoying 
 - if the tab is active, it will become active in the new window
 - if the tab is inactive, it will stay inactive in the new window
 - if there is only 1 window, a new window will be opened on move
+- keyboard shortcut support
 
 ## Technologies used
 
