@@ -13,7 +13,7 @@ Especially useful for these amazing multi-monitor setups when it's too annoying 
 ## Quick feature list
 
 - the source tab position is saved in all windows, so if it's moved back into a window, it moves into its original position
-- CHROMIUM: if the tab is in a tab group, when moving it the identical group will be created or used in another window. When moving back to original window the tab will return into its original group
+- CHROMIUM: if the tab is in a tab group, when moving it the identical group will be created or used in another window
 - multiple tabs move - select multiple tabs (use shift or cmd/ctrl) and move all of them into the next window in the same order
 - if the tab is active, it will become active in the new window
 - if the tab is inactive, it will stay inactive in the new window
