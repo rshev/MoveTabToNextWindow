@@ -1,42 +1,25 @@
 import { TabMover, Tab, Data } from "./tabMover";
 
-// register
-const tabMover = new TabMover();
-chrome.runtime.onStartup.addListener(() => chrome.storage.local.clear());
-chrome.action.onClicked.addListener((tab) => tabMover.moveTabOrHighlightedTabs(tab));
-chrome.commands.onCommand.addListener((_, tab) => tabMover.moveTabOrHighlightedTabs(tab));
-
 // chrome-specific hooks
-tabMover.loadData = async () => {
+const loadData = (): Promise<Data> => {
   return new Promise((resolve) => chrome.storage.local.get((items) => resolve(items)));
 };
-tabMover.saveData = async (data: Data) => {
+const saveData = (data: Data): Promise<void> => {
   return new Promise((resolve) => chrome.storage.local.set(data, () => resolve()));
 };
-tabMover.newTabCompletion = async (tab: Tab, targetWindowId: number, originalTab?: Tab) => {
-  const group = await (async () => {
-    if (tab.groupId != null && tab.groupId !== -1) {
-      const group = await tabGroupsGet(tab.groupId);
-      if (group != null) {
-        return group;
-      }
-    }
-    if (originalTab?.groupId != null && originalTab.groupId !== -1) {
-      const group = await tabGroupsGet(originalTab.groupId);
-      if (group != null) {
-        return group;
-      }
-    }
-    return null;
-  })();
-
-  if (group == null) {
+const tabMoveWrapper = async (tab: Tab, moveOperation: () => Promise<number>) => {
+  if (tab.groupId == null || tab.groupId === chrome.tabGroups.TAB_GROUP_ID_NONE) {
+    await moveOperation();
     return;
   }
 
+  const group = await chrome.tabGroups.get(tab.groupId);
   const { color, title } = group;
+
+  const targetWindowId = await moveOperation();
+
   const existingTargetGroup = (
-    await tabGroupsQuery({
+    await chrome.tabGroups.query({
       color: color,
       title: title,
       windowId: targetWindowId,
@@ -44,41 +27,24 @@ tabMover.newTabCompletion = async (tab: Tab, targetWindowId: number, originalTab
   )[0];
 
   if (existingTargetGroup != null) {
-    await tabsGroup({
+    await chrome.tabs.group({
       groupId: existingTargetGroup.id,
       tabIds: tab.id,
     });
   } else {
-    const newGroupId = await tabsGroup({
+    const newGroupId = await chrome.tabs.group({
       createProperties: { windowId: targetWindowId },
       tabIds: tab.id,
     });
-    await tabGroupsUpdate(newGroupId, {
+    await chrome.tabGroups.update(newGroupId, {
       color: color,
       title: title,
     });
   }
 };
 
-// promisify
-const tabGroupsGet = (groupId: number): Promise<chrome.tabGroups.TabGroup> => {
-  return new Promise((resolve) => chrome.tabGroups.get(groupId, (group) => resolve(group)));
-};
-const tabGroupsQuery = (
-  queryInfo: chrome.tabGroups.QueryInfo
-): Promise<chrome.tabGroups.TabGroup[]> => {
-  return new Promise((resolve) =>
-    chrome.tabGroups.query(queryInfo, (tabGroups) => resolve(tabGroups))
-  );
-};
-const tabGroupsUpdate = (
-  groupId: number,
-  updateProperties: chrome.tabGroups.UpdateProperties
-): Promise<chrome.tabGroups.TabGroup> => {
-  return new Promise((resolve) =>
-    chrome.tabGroups.update(groupId, updateProperties, (tabGroup) => resolve(tabGroup))
-  );
-};
-const tabsGroup = (options: chrome.tabs.GroupOptions): Promise<number> => {
-  return new Promise((resolve) => chrome.tabs.group(options, (groupId) => resolve(groupId)));
-};
+// register
+const tabMover = new TabMover(loadData, saveData, tabMoveWrapper);
+chrome.runtime.onStartup.addListener(() => chrome.storage.local.clear());
+chrome.action.onClicked.addListener((tab) => tabMover.moveTabOrHighlightedTabs(tab));
+chrome.commands.onCommand.addListener((_, tab) => tabMover.moveTabOrHighlightedTabs(tab));

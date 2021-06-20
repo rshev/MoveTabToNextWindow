@@ -23,14 +23,14 @@
   "main": "dist/index.js",
   "types": ".cache/null",
   "devDependencies": {
-    "@types/chrome": "^0.0.134",
+    "@types/chrome": "^0.0.145",
     "@types/firefox-webext-browser": "^82.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.0.0",
-    "@typescript-eslint/parser": "^4.0.0",
-    "bestzip": "^2.1.7",
-    "eslint": "^7.1.0",
-    "microbundle": "^0.13.0",
-    "typescript": "^4.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.27.0",
+    "@typescript-eslint/parser": "^4.27.0",
+    "bestzip": "^2.2.0",
+    "eslint": "^7.29.0",
+    "microbundle": "^0.13.3",
+    "typescript": "^4.3.4",
     "webextension-polyfill-ts": "^0.25.0"
   }
 }
