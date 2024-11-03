@@ -20,6 +20,19 @@ Especially useful for these amazing multi-monitor setups when it's too annoying 
 - if there is only 1 window, a new window will be opened on move
 - keyboard shortcut support
 
+## Setting up keyboard shortcuts
+
+#### Chromium-based browsers
+    1. Go to Settings -> Extensions
+    2. Click Keyboard Shortcuts on the top left sidebar
+    3. Find "Move Tab to Next Window" and add your desired shortcut
+
+#### Firefox-based browsers
+    1. Visit the "Add-ons and Themes" page
+    2. Click on the gear icon next to "Manage Your Extensions"
+    3. Click on "Manage Extension Shortcuts"
+    4. Find "Move Tab to Next Window" and add your desired shortcut
+
 ## Technologies used
 
 - TypeScript in strict mode for safety
