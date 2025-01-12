@@ -67,7 +67,9 @@ export class TabMover {
     const originalTabWindowId = this.tabWindowId(tab.id, tab.windowId);
     this.originalTabInfoByTabWindowId[originalTabWindowId] = { ...tab };
 
-    const allWindows = (await browser.windows.getAll()).filter((window) => window.id != null);
+    const allWindows = (await browser.windows.getAll()).filter(
+      (window) => window.id != null && window.type === "normal"
+    );
     const currentTabWindowIndex = allWindows.findIndex((window) => window.id === tab.windowId);
     const targetWindowId = allWindows[(currentTabWindowIndex + 1) % allWindows.length]?.id;
 
