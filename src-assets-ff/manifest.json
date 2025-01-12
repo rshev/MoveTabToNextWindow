@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "Move Tab to Next Window",
-  "version": "1.1.0",
-  "description": "Move tab to next window - tab context menu and button extension",
+  "version": "1.2.0",
+  "description": "One-click to move a tab to the next window from a button or tab context menu",
   "homepage_url": "https://github.com/rshev/MoveTabToNextWindow",
   "permissions": ["menus"],
   "background": {
